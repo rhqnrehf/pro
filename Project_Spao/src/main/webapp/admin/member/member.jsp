@@ -53,7 +53,7 @@ $(document).ready(function(){
             	<div class="mainmenu" on="0"><img src="images/user/icon_menu_minus.gif" style="cursor: pointer;"> <span><a href="#">회원이용도</a></span></div>
 				<ul class="submenu">
 					<li id="memberReserveLog" class=""><a href="memberReserveLog.do">적립금 로그</a></li>
-					<li id="memberRank" class=""><a href="#">적립금 순위</a></li>
+					<li id="memberRank" class=""><a href="memberReserveRank.do">적립금 순위</a></li>
 				</ul>
             </td>
         </tr>

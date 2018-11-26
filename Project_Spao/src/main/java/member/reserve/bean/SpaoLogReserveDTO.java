@@ -1,4 +1,4 @@
-package member.bean;
+package member.reserve.bean;
 
 import java.time.LocalDateTime;
 

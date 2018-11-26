@@ -8,9 +8,11 @@ import admin.bean.SpaoAdminMemoDTO;
 import member.bean.MemberDTO;
 import member.bean.MemberPagingDTO;
 import member.bean.SpaoComDTO;
+import member.reserve.bean.SpaoLogReservePagingDTO;
 
 public interface AdminDAO {
 	int getTotalUser();
+	int getSearchPagingUserTotal(Map<String,String> map);
 	int getTodayJoin();
 	int getMonthJoin();
 	int getBirthToday();
@@ -32,8 +34,9 @@ public interface AdminDAO {
 	void takeReserve(Map<String,String> map);  //적립금 뺏을때
 	
 	SpaoComDTO getSelectReserve(String id);   //해당 아이디의 부가정보를가져옴
+	int getTotalReserve(); //현재 회원들이 갖고있는 적립금총액
 	
-	List<MemberPagingDTO> getPagingUser(Map<String,Integer> map);
+	List<MemberPagingDTO> getPagingUser(Map<String,String> map);
 	List<MemberPagingDTO> getSearchPagingUser(Map<String,String> map);
 	
 	void setSpaoAdminMemo(Map<String,String> map);
@@ -41,4 +44,10 @@ public interface AdminDAO {
 	List<SpaoAdminMemoDTO> getSelectSpaoAdminMemo(String userId);
 	
 	void deleteSpaoAdminMemo(Map<String,String> map);
+	
+	List<SpaoLogReservePagingDTO> getPagingReserveLog(Map<String,String> map);
+	int getPagingReserveLogTotalA();
+	
+	List<SpaoLogReservePagingDTO> getSearchPagingReserveLog(Map<String,String> map);
+	int getSearchPagingReserveLogTotalA(Map<String,String> map);
 }

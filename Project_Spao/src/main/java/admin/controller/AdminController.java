@@ -7,8 +7,10 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.RSAPublicKeySpec;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.crypto.Cipher;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +29,10 @@ import admin.dao.AdminDAO;
 import member.bean.MemberPaging;
 import member.bean.MemberPagingDTO;
 import member.bean.MemberSearchPaging;
+import member.bean.SpaoComDTO;
+import member.reserve.bean.SpaoLogReservePaging;
+import member.reserve.bean.SpaoLogReservePagingDTO;
+import member.reserve.bean.SpaoLogReserveSearchPaging;
 
 @Controller
 public class AdminController {
@@ -75,14 +81,13 @@ public class AdminController {
 	
 	@RequestMapping(value="admin/memberList.do",method=RequestMethod.GET)
 	public String memberList(Model model,@RequestParam(name="pg",required=true,defaultValue="1") int pg,@RequestParam(name="mode",required=false) String mode,@RequestParam(name="keyword",required=false) String keyword) {
+		int endNum = pg*5;  //페이지당 다섯개씩
+		int startNum = endNum-4;
+		Map<String,String>map=new HashMap<String,String>();
+		map.put("endNum", Integer.toString(endNum));
+		map.put("startNum", Integer.toString(startNum));
+		
 		if(mode==null&&keyword==null) {
-			int endNum = pg*5;  //페이지당 다섯개씩
-			int startNum = endNum-4;
-			
-			Map<String,Integer>map=new HashMap<String,Integer>();
-			map.put("endNum", endNum);
-			map.put("startNum", startNum);
-			
 			int totalUser=adminDAO.getTotalUser();
 			List<MemberPagingDTO> list=adminDAO.getPagingUser(map);
 			
@@ -105,16 +110,14 @@ public class AdminController {
 		}else {
 			if(mode.equals("email")) {
 				mode="email1||'@'||email2";
+			}else if(mode.equals("id")) {
+				mode="spaomember.id";
 			}
-			int endNum = pg*5;  //페이지당 다섯개씩
-			int startNum = endNum-4;
 			
-			Map<String,String>map=new HashMap<String,String>();
-			map.put("endNum", Integer.toString(endNum));
-			map.put("startNum", Integer.toString(startNum));
+
 			map.put("mode", mode);
 			map.put("keyword", "%"+keyword+"%");
-			int totalUser=adminDAO.getTotalUser();
+			int totalUser=adminDAO.getSearchPagingUserTotal(map);
 			List<MemberPagingDTO> list=adminDAO.getSearchPagingUser(map);
 			
 			MemberSearchPaging mp=new MemberSearchPaging();
@@ -137,14 +140,73 @@ public class AdminController {
 	}
 	
 	@RequestMapping("admin/memberReserveLog.do")
-	public String memberReserveLog(Model model) {
+	public String memberReserveLog(Model model,@RequestParam(name="pg",required=true,defaultValue="1") int pg,@RequestParam(name="mode",required=false) String mode,@RequestParam(name="keyword",required=false) String keyword) {
+		int totalWon=0;
+		int userTotalWon=0;
+		int endNum=pg*5;
+		int startNum=endNum-4;
+		Map<String,String> map=new HashMap<String,String>();
+		map.put("startNum", Integer.toString(startNum));
+		map.put("endNum", Integer.toString(endNum));
+		List<SpaoLogReservePagingDTO> list=null;
+		if(mode==null||keyword==null) {
+			list=adminDAO.getPagingReserveLog(map);
+			for(SpaoLogReservePagingDTO dto:list) {
+				totalWon+=Integer.parseInt(dto.getWon()); //지급 총액
+			}
+			userTotalWon=totalWon-adminDAO.getTotalReserve(); //사용총액
+			SpaoLogReservePaging mp=new SpaoLogReservePaging();
+			mp.setCurrentPage(pg);  //현재페이지 
+			mp.setPageBlock(3); //[이전][1][2][3][다음]  123의숫자
+			mp.setPageSize(5); //한페이지에 몇개의 유저를 보일건지 
+			mp.setTotalA(adminDAO.getPagingReserveLogTotalA()); //총유저수
+			mp.makePagingHTML();
+			model.addAttribute("mp", mp);
+		}else {
+			Set<String> set=new HashSet<String>();
+			if(mode.equals("id")) {
+				mode="spaomember.id";
+			}
+			keyword="%"+keyword+"%";
+			map.put("mode", mode);
+			map.put("keyword", keyword);
+			list=adminDAO.getSearchPagingReserveLog(map);
+			for(SpaoLogReservePagingDTO dto:list) {
+				totalWon+=Integer.parseInt(dto.getWon()); //적립금 지급 총액
+				set.add(dto.getId());
+			}
+			for(String id:set) {
+				SpaoComDTO spaoComDTO=adminDAO.getSelectReserve(id);
+				userTotalWon+=spaoComDTO.getReserve();
+			}
+			userTotalWon=totalWon-userTotalWon; //적립금 사용 총액
+			SpaoLogReserveSearchPaging mp=new SpaoLogReserveSearchPaging();
+			mp.setCurrentPage(pg);  //현재페이지 
+			mp.setPageBlock(3); //[이전][1][2][3][다음]  123의숫자
+			mp.setPageSize(5); //한페이지에 몇개의 유저를 보일건지 
+			mp.setTotalA(adminDAO.getSearchPagingReserveLogTotalA(map)); //총유저수
+			mp.setMode(mode);
+			mp.setKeyword(keyword);
+			mp.makePagingHTML();
+			model.addAttribute("mp", mp);
+
+		}
 		
 		
+		model.addAttribute("list", list);
+		model.addAttribute("userTotalWon", userTotalWon);
+		model.addAttribute("totalWon", totalWon);
 		model.addAttribute("display","member/member.jsp");
 		model.addAttribute("member", "memberReserveLog.jsp");
 		return "main";
 	}
 
+	@RequestMapping("admin/memberReserveRank.do")
+	public String memberReserveRank(Model model,@RequestParam(name="pg",required=true,defaultValue="1") int pg,@RequestParam(name="mode",required=false) String mode,@RequestParam(name="keyword",required=false) String keyword) {
+		model.addAttribute("display","member/member.jsp");
+		model.addAttribute("member", "memberReserveRank.jsp");
+		return "main";
+	}
 	
 	
 	//------------------------------------------------------------ 로그인폼

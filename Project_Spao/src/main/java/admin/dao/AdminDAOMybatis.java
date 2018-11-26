@@ -14,6 +14,7 @@ import admin.bean.SpaoAdminMemoDTO;
 import member.bean.MemberDTO;
 import member.bean.MemberPagingDTO;
 import member.bean.SpaoComDTO;
+import member.reserve.bean.SpaoLogReservePagingDTO;
 
 @Transactional
 @Component
@@ -27,6 +28,9 @@ public class AdminDAOMybatis implements AdminDAO {
 	
 	
 	
+	public int getSearchPagingUserTotal(Map<String,String> map) {
+		return sqlSession.selectOne("adminSQL.getSearchPagingUserTotal",map);
+	}
 
 	public int getTotalUser() {
 		int total=sqlSession.selectOne("adminSQL.getTotalUser");
@@ -104,7 +108,7 @@ public class AdminDAOMybatis implements AdminDAO {
 		
 		return spaoComDTO;
 	} 
-	public List<MemberPagingDTO> getPagingUser(Map<String,Integer> map){
+	public List<MemberPagingDTO> getPagingUser(Map<String,String> map){
 		List<MemberPagingDTO> list=sqlSession.selectList("adminSQL.getPagingUser", map);
 		return list;
 	}
@@ -125,6 +129,30 @@ public class AdminDAOMybatis implements AdminDAO {
 	public List<MemberPagingDTO> getSearchPagingUser(Map<String,String> map){
 		List<MemberPagingDTO> list=sqlSession.selectList("adminSQL.getSearchPagingUser", map);
 		return list;
+	}
+	
+	public int getTotalReserve() {
+		int su=sqlSession.selectOne("adminSQL.getTotalReserve");
+		return su;
+	}
+	public List<SpaoLogReservePagingDTO> getPagingReserveLog(Map<String,String> map){
+		List<SpaoLogReservePagingDTO> list=sqlSession.selectList("adminSQL.getPagingReserveLog", map);
+		
+		return list;
+	}
+	public int getPagingReserveLogTotalA() {
+		int su=sqlSession.selectOne("adminSQL.getPagingReserveLogTotalA");
+		return su;
+	}
+	
+	
+	public List<SpaoLogReservePagingDTO> getSearchPagingReserveLog(Map<String,String> map){
+		List<SpaoLogReservePagingDTO> list=sqlSession.selectList("adminSQL.getSearchPagingReserveLog", map);
+		return list;
+	}
+	public int getSearchPagingReserveLogTotalA(Map<String,String> map) {
+		int su=sqlSession.selectOne("adminSQL.getSearchPagingReserveLogTotalA",map);
+		return su;
 	}
 
 	

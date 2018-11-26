@@ -33,12 +33,6 @@
 <div class="AreaW95 pa_l_20">
 
 <div class="subtitle"><img src="/Project_Spao/admin/images/user/bul_subtitle.gif"> 적립금 로그 </div>
-<form name="form_mile" method="post" autocomplete="off">
-<input type="hidden" name="act" value="user.user_access_mile">
-<input type="hidden" name="ch" value="user">
-<input type="hidden" name="oc" value="mile_log_date">
-<input type="hidden" name="os" value="desc">
-<input type="hidden" name="mode" value="">
 
 
 <table cellpadding="0" cellspacing="1" border="0" class="tbstyleB" width="100%">
@@ -55,9 +49,9 @@
         	<select id="mode" name="mode" style="width:70px;">
             	<option value="id">아이디</option>
 				<option value="name">이름</option>
-				<option value="log_memo">내용</option>
+				<option value="reserveLog">내용</option>
             </select>
-            <input type="text" id="keyword" name="keyword" value="" class="inputbox" size="20">
+            <input type="text" id="keyword" name="keyword"class="inputbox" size="20">
         </td>
     </tr>
 </tbody></table>
@@ -74,7 +68,7 @@
             	<table cellpadding="0" cellspacing="0" border="0">
                 	<tbody><tr>
                         <td>
-							<span class="fc_red_b">지급총액 : 4,000 / 사용총액 : 0</span>
+							<span class="fc_red_b">지급총액 : <fmt:formatNumber value="${totalWon}" pattern="#,###"></fmt:formatNumber> / 사용총액 : <fmt:formatNumber value="${userTotalWon}" pattern="#,###"></fmt:formatNumber> </span>
                         </td>
                     </tr>
                 </tbody></table>
@@ -137,50 +131,18 @@
         </tr>
     </thead>
    <tbody>
-	    	<tr>
-        	<td class="tdL" align="center">4</td>
-        	<td class="tdL" align="center">2009.11.16 11:15</td>
-            <td class="tdL" align="center"><a href="#" class="fc_blue" user_id="love" ui_user="love"><u>love</u></a></td>
-            <td class="tdL" align="center"><a href="#" class="fc_blue" user_id="love" ui_user="love"><u>신사임당</u></a></td>
-			<td class="tdL" align="right">1,000</td>
-            <td class="tdL" align="center">회원가입 축하 적립금</td>
-            <td class="tdL" align="center">
-							</td>
+   <c:forEach var="spaoLogReservePagingDTO" items="${list}">
+   	<tr>
+   		    <td class="tdL" align="center">${spaoLogReservePagingDTO.rn }</td>
+        	<td class="tdL" align="center">${spaoLogReservePagingDTO.logtime}</td>
+            <td class="tdL" align="center"><a href="#" class="fc_blue" user_id="${spaoLogReservePagingDTO.id }" ui_user="${spaoLogReservePagingDTO.id }"><u>${spaoLogReservePagingDTO.id }</u></a></td>
+            <td class="tdL" align="center"><a href="#" class="fc_blue" user_id="${spaoLogReservePagingDTO.id }" ui_user="${spaoLogReservePagingDTO.id }"><u>${spaoLogReservePagingDTO.name}</u></a></td>
+			<td class="tdL" align="right"><fmt:formatNumber value="${spaoLogReservePagingDTO.won}" pattern="#,###"></fmt:formatNumber> </td>
+            <td class="tdL" align="center">${spaoLogReservePagingDTO.reserveLog}</td>
+            <td class="tdL" align="center"></td>
             <td class="tdR" align="center"></td>
-        </tr>
-	    	<tr>
-        	<td class="tdL" align="center">3</td>
-        	<td class="tdL" align="center">2009.11.16 11:13</td>
-            <td class="tdL" align="center"><a href="#" class="fc_blue" user_id="moon" ui_user="moon"><u>moon</u></a></td>
-            <td class="tdL" align="center"><a href="#" class="fc_blue" user_id="moon" ui_user="moon"><u>황진이</u></a></td>
-			<td class="tdL" align="right">1,000</td>
-            <td class="tdL" align="center">회원가입 축하 적립금</td>
-            <td class="tdL" align="center">
-							</td>
-            <td class="tdR" align="center"></td>
-        </tr>
-	    	<tr>
-        	<td class="tdL" align="center">2</td>
-        	<td class="tdL" align="center">2009.11.16 11:12</td>
-            <td class="tdL" align="center"><a href="#" class="fc_blue" user_id="lee" ui_user="lee"><u>lee</u></a></td>
-            <td class="tdL" align="center"><a href="#" class="fc_blue" user_id="lee" ui_user="lee"><u>이몽룡</u></a></td>
-			<td class="tdL" align="right">1,000</td>
-            <td class="tdL" align="center">회원가입 축하 적립금</td>
-            <td class="tdL" align="center">
-							</td>
-            <td class="tdR" align="center"></td>
-        </tr>
-	    	<tr>
-        	<td class="tdL" align="center">1</td>
-        	<td class="tdL" align="center">2009.11.16 11:10</td>
-            <td class="tdL" align="center"><a href="#" class="fc_blue" user_id="hong" ui_user="hong"><u>hong</u></a></td>
-            <td class="tdL" align="center"><a href="#" class="fc_blue" user_id="hong" ui_user="hong"><u>홍길동</u></a></td>
-			<td class="tdL" align="right">1,000</td>
-            <td class="tdL" align="center">회원가입 축하 적립금</td>
-            <td class="tdL" align="center">
-							</td>
-            <td class="tdR" align="center"></td>
-        </tr>
+   	</tr>
+   </c:forEach>
 	    </tbody>
 </table>    
 </div>
@@ -190,12 +152,13 @@
 <table cellpadding="0" cellspacing="0" border="0" width="100%">
 	<tbody><tr>
     	<td align="center">
-			<span class="paging"><a href="/admin/?act=user.user_access_mile&amp;ch=user&amp;page=1" class="first"><img src="/Project_Spao/admin/images/default/button/btn_navi_arrLL.gif" border="0" align="absmiddle"></a><a href="/admin/?act=user.user_access_mile&amp;ch=user&amp;page=1" class="pre"><img src="/Project_Spao/admin/images/default/button/btn_navi_arrL.gif" border="0" align="absmiddle"></a><a href="/admin/?act=user.user_access_mile&amp;ch=user&amp;page=1" class="on"> 1 </a><a href="/admin/?act=user.user_access_mile&amp;ch=user&amp;page=1" class="next"><img src="/Project_Spao/admin/images/default/button/btn_navi_arrR.gif" border="0" align="absmiddle"></a><a href="/admin/?act=user.user_access_mile&amp;ch=user&amp;page=1" class="last"><img src="/Project_Spao/admin/images/default/button/btn_navi_arrRR.gif" border="0" align="absmiddle"></a></span>        </td>
+			<span class="paging">
+			${mp.pagingHTML}
+			</span>        
+			</td>
 	</tr>
 </tbody></table>
 </div>
-
-</form>
 
 </div>
 								</td>
@@ -213,5 +176,15 @@
 							$("#leftmenu .bgmenu .submenu li").removeAttr("class");
 							$("#leftmenu .bgmenu .submenu #memberReserveLog").addClass("select");
 							//회원리스트 굵게표시 END
+							
+							$("#submit").click(function(){
+								var mode=$("select[name=mode]").val();
+								var keyword=$("#keyword").val();
+								if(keyword.length<1){
+									alert("키워드를 입력하세요.");
+								}else{
+									location.href="memberReserveLog.do?mode="+mode+"&keyword="+keyword;
+								}
+							});
 						});
 						</script>

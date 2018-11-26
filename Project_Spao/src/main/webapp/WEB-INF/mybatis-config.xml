@@ -16,7 +16,9 @@
 		<typeAlias type="member.bean.MemberPagingDTO" alias="memberPaging"/>
 		<typeAlias type="member.bean.MemberDTO" alias="member"/>
 		<typeAlias type="member.bean.SpaoComDTO" alias="spaoCom"/>
-		<typeAlias type="member.bean.SpaoLogReserveDTO" alias="spaoLogReserve"/>
+		
+		
+		<typeAlias type="member.reserve.bean.SpaoLogReserveDTO" alias="spaoLogReserve"/>
 	</typeAliases>
 
 	<!--

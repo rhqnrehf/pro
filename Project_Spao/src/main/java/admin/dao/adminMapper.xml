@@ -78,6 +78,12 @@
     where rn>=]]>#{startNum} <![CDATA[ and rn<=]]>#{endNum}
 	</select>
 	
+	<select id="getSearchPagingUserTotal" parameterType="java.util.Map" resultType="int" >
+	<![CDATA[ select count(*) from 
+	(select rownum rn,tt.* from(select spaomember.name,spaomember.id,spaomember.logtime,spaocom.hit,spaocom.reserve,spaocom.orderHit,spaocom.orderTotal
+    from spaomember,spaocom where spaomember.id=spaocom.id and ${mode} like #{keyword} order by logtime desc)tt)]]>
+	</select>
+	
 	<insert id="setSpaoAdminMemo" parameterType="java.util.Map">
 		insert into spaoadminmemo values(
 			#{adminId},#{content},sysdate,#{userId}
@@ -90,6 +96,35 @@
 	<delete id="deleteSpaoAdminMemo" parameterType="java.util.Map">
 		delete spaoAdminMemo where adminId=#{adminId} and content=#{content} and userId=#{userId}
 	</delete>
+	
+	<select id="getTotalReserve" resultType="int">
+		select sum(reserve) from spaocom
+	</select>
+	
+	<select id="getPagingReserveLog" parameterType="java.util.Map" resultType="member.reserve.bean.SpaoLogReservePagingDTO">
+	<![CDATA[select * from (select rownum rn,tt.* from 
+		(select spaomember.id,spaomember.name,spaologreserve.won,spaologreserve.reservelog,spaologreserve.logtime from 
+			spaologreserve,spaomember where spaologreserve.id=spaomember.id order by logtime desc)tt) 
+			where rn>=]]>#{startNum} <![CDATA[and rn<=#{endNum}]]>
+	</select>
+	<select id="getPagingReserveLogTotalA" resultType="int">
+		<![CDATA[select count(*) from (select rownum rn,tt.* from 
+		(select spaomember.id,spaomember.name,spaologreserve.won,spaologreserve.reservelog,spaologreserve.logtime from 
+			spaologreserve,spaomember where spaologreserve.id=spaomember.id order by logtime desc)tt) ]]>
+	</select>
+	
+	
+	<select id="getSearchPagingReserveLog" parameterType="java.util.Map" resultType="member.reserve.bean.SpaoLogReservePagingDTO">
+			<![CDATA[select * from (select rownum rn,tt.* from 
+		(select spaomember.id,spaomember.name,spaologreserve.won,spaologreserve.reservelog,spaologreserve.logtime from 
+		spaologreserve,spaomember where spaologreserve.id=spaomember.id and ${mode} like #{keyword} order by logtime desc)tt) 
+		where rn>=]]>#{startNum} <![CDATA[and rn<=#{endNum}]]>
+	</select>
+	<select id="getSearchPagingReserveLogTotalA" parameterType="java.util.Map" resultType="int">
+			<![CDATA[select count(*) from (select rownum rn,tt.* from 
+		(select spaomember.id,spaomember.name,spaologreserve.won,spaologreserve.reservelog,spaologreserve.logtime from 
+		spaologreserve,spaomember where spaologreserve.id=spaomember.id and ${mode} like #{keyword} order by logtime desc)tt) ]]>
+	</select>
 	
 	
 		<!-- 관리자 로그인 -->
