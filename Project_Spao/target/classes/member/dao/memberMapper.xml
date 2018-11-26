@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="memberSQL">
+	<insert id="writeUser" parameterType="member">
+	begin
+		insert into spaomember values(
+		#{name},#{id},#{pwd},#{birth},#{liftLucar},
+		#{phoneNumber},#{address1},#{address2},#{email1},#{email2},
+		#{marriage},#{anniversary},sysdate
+		);
+		insert into spaocom values(
+		#{id},0,1,1000,0,sysdate
+		);
+		insert into spaolog values(
+		#{id},1000,'회원가입 축하금'	
+		);
+	end;
+	</insert>
+	
+	<select id="getUser" parameterType="String" resultType="member">
+		select * from spaomember where id=#{id}
+	</select>
+</mapper>

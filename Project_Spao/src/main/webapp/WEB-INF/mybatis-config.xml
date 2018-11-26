@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd"> 
+<configuration>
+	<!-- 특정 타입의 별명을 정합니다 -->
+	<typeAliases>
+		<typeAlias type="post.bean.ZipcodeDTO" alias="zipcode"/>
+		
+		
+		
+		<typeAlias type="admin.bean.ProductDTO" alias="product"/>
+		<typeAlias type="admin.bean.SpaoAdminDTO" alias="admin"/>
+		<typeAlias type="admin.bean.SpaoAdminMemoDTO" alias="adminMemo"/>
+		
+		
+		<typeAlias type="member.bean.MemberPagingDTO" alias="memberPaging"/>
+		<typeAlias type="member.bean.MemberDTO" alias="member"/>
+		<typeAlias type="member.bean.SpaoComDTO" alias="spaoCom"/>
+		<typeAlias type="member.bean.SpaoLogReserveDTO" alias="spaoLogReserve"/>
+	</typeAliases>
+
+	<!--
+         mapper.xml은 실질적으로 query문이 선언되어 있는 부분입니다.
+         sqlSessionFactory 생성후 sqlSession을 생성할때 아래설정한 Mapper.xml 이 불려집니다.
+    -->
+	<mappers>
+		<mapper resource="post/dao/postMapper.xml"/>
+		<mapper resource="member/dao/memberMapper.xml" />
+		<mapper resource="admin/dao/adminMapper.xml"/>
+	</mappers>
+</configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

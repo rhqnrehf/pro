@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="adminSQL">
+	<select id="getTotalUser" resultType="int">
+		select count(*) from spaomember
+	</select>
+	
+	<select id="getTodayJoin" resultType="int">
+		select count(*)  from spaomember  where to_char(logtime,'YYYYMMDD')=to_char(sysdate,'YYYYMMDD')
+	</select>
+	
+	<select id="getMonthJoin" resultType="int">
+		select count(*)  from spaomember  where to_char(logtime,'YYYYMM')=to_char(sysdate,'YYYYMM')
+	</select>
+	
+	<select id="getBirthToday" resultType="int">
+		select count(*) from spaomember where birth like to_char(sysdate,'%MMDD')  <!-- 뒤 4글자가 해당 월일 이면 가져옴 -->
+	</select>
+	
+	<select id="getBirthMonth" resultType="int">
+		select count(*) from spaomember where to_char(to_date(birth),'MM') =to_char(sysdate,'MM')
+	</select>
+	
+	<select id="getAnniversaryToday" resultType="int">
+		select count(*) from spaomember where anniversary like to_char(sysdate,'%MMDD')
+	</select>
+	
+	<select id="getAnniversaryMonth" resultType="int">
+		    select count(*) from (select * from spaomember where length(anniversary)>7) where to_char(to_date(anniversary),'MM')= to_char(sysdate,'MM')
+	</select>
+	
+	<select id="getAllUser" resultType="member">
+		select * from spaomember
+	</select>
+	
+	<select id="getSelectUser" parameterType="String" resultType="member">
+		select * from spaomember where id=#{id}
+	</select>
+	
+	<select id="getSelectReserve" resultType="spaocom" parameterType="String">
+		select * from spaocom where id=#{id}
+	</select>
+	
+	<update id="changePwd" parameterType="java.util.Map">
+		update spaomember set pwd=#{pwd} where id=#{id}
+	</update>
+	<delete id="deleteUser" parameterType="String">
+		delete spaomember where id=#{id}
+	</delete>
+	
+	<update id="giveReserve" parameterType="java.util.Map">
+		begin
+			update spaocom set reserve=reserve+#{reserve} where id=#{id};
+			insert into spaologreserve values(#{id},#{reserve},#{reservelog});
+		end;
+	</update>
+	
+	<update id="takeReserve" parameterType="java.util.Map">
+		begin
+			update spaocom set reserve=reserve-#{reserve} where id=#{id} where reserve-#{reserve}!=0;
+			insert into spaologreserve values(#{id},#{reserve},#{reservelog});
+		end;
+	</update>
+	
+	<select id="getPagingUser" parameterType="java.util.Map" resultType="memberPaging">
+	<![CDATA[ select * from 
+	(select rownum rn,tt.* from(select spaomember.name,spaomember.id,spaomember.logtime,spaocom.hit,spaocom.reserve,spaocom.orderHit,spaocom.orderTotal
+    from spaomember,spaocom where spaomember.id=spaocom.id order by logtime desc)tt)
+    where rn>=]]>#{startNum} <![CDATA[ and rn<=]]>#{endNum}
+	</select>
+	
+	<select id="getSearchPagingUser" parameterType="java.util.Map" resultType="memberPaging">
+	<![CDATA[ select * from 
+	(select rownum rn,tt.* from(select spaomember.name,spaomember.id,spaomember.logtime,spaocom.hit,spaocom.reserve,spaocom.orderHit,spaocom.orderTotal
+    from spaomember,spaocom where spaomember.id=spaocom.id and ${mode} like #{keyword} order by logtime desc)tt)
+    where rn>=]]>#{startNum} <![CDATA[ and rn<=]]>#{endNum}
+	</select>
+	
+	<insert id="setSpaoAdminMemo" parameterType="java.util.Map">
+		insert into spaoadminmemo values(
+			#{adminId},#{content},sysdate,#{userId}
+		)
+	</insert>
+	
+	<select id="getSelectSpaoAdminMemo" parameterType="String" resultType="adminMemo">
+		select * from spaoadminMemo where userId=#{userId}
+	</select>
+	<delete id="deleteSpaoAdminMemo" parameterType="java.util.Map">
+		delete spaoAdminMemo where adminId=#{adminId} and content=#{content} and userId=#{userId}
+	</delete>
+	
+	
+		<!-- 관리자 로그인 -->
+	<select id="loginAdmin" parameterType="String" resultType="admin">
+		select * from spaoadmin where id=#{id}
+	</select>
+</mapper>

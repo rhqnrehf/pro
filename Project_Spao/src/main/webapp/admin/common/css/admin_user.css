@@ -1,0 +1,178 @@
+#leftmenu .bgmenu {
+	background:url("../../images/user/sub_leftmenu_Middle.gif") 0 0 repeat-y;}
+#leftmenu .mainmenu {
+	border-bottom:solid 1px #efdcb5;}
+#leftmenu .mainmenu.select span, #leftmenu .mainmenu.select span a {
+	color:#8a5a09;}
+#leftmenu .submenu {
+	border-bottom:solid 1px #efdcb5;}
+#leftmenu .submenu li {
+	background:url("../../images/user/bul_submenu.gif") 0 5px no-repeat;}
+#leftmenu .submenu li.select a {
+	color:#ba7c18;}
+#leftmenu .png {
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../images/user/sub_leftmenu_Bottom.png',sizingMethod='scale');}
+
+/* treeview */
+.treeview {height:100%;vertical-align:top;}
+.treeview .bg {
+	width:187px;padding:0 18px 10px 18px;background:url("/admin/images/goods/treeview_bg.gif") 0 0 repeat-y;
+	vertical-align:top;}
+.treeview .header {
+	width:205px;height:34px;background:url("/admin/images/goods/treeview_header.gif") 0 0 no-repeat;
+	color:#444;text-align:center;font-weight:bold;}
+.treeview .bottom {
+	width:205px;background:url("/admin/images/goods/treeview_bottom.gif") 0 bottom no-repeat;}
+.treeview li {
+	font-weight:bold;border-bottom:solid 1px #e6e6e6;padding:4px 0 4px 0;}
+.treeview .nsel {
+	color:#444;}
+.treeview .sel {
+	color:#6e42df;}
+
+
+
+/*운영자메모등록_팝업*/
+.graybox {
+	border:solid 1px #e5e5e5;
+	padding:5px;
+	background-color:#fbfbfb;}
+
+.linelist {
+	margin:10px 0 0 0;
+	border-top:solid 1px #e5e5e5;
+	background-color:#fafafa;}
+.linelist li {
+	padding:10px;
+	border-bottom:solid 1px #e5e5e5;}
+
+
+/*SMS*/
+.smsbg {
+	width:122px;height:117px;padding:30px 20px 20px 20px;
+	background:url("/admin/images/common/bg_sms.gif") 0 0 no-repeat; margin:auto;}
+.smsbg td {color:#fff;}
+.smsbg .msgtable {height:118px;vertical-align:top;
+	background:url("/admin/images/common/bg_sms01.gif") 0 0 no-repeat;text-align:left;}
+.smsbg .msg {background-color:transparent;width:122px;vertical-align:top;text-align:left;}
+.smsbg .byte {background-color:transparent;height:18px;text-align:left;}
+
+.SMSarea {
+	color:#FFFFFF; line-height:14px;
+	border:0px;background-color:transparent;
+	}
+
+
+/*SMS-미적용*/
+.smsbgx {
+	width:122px;height:117px;padding:40px 20px 20px 20px;
+	background:url("/admin/images/common/bg_sms_x.gif") 0 0 no-repeat;}
+.smsbgx .msgtable {height:118px;vertical-align:top;
+	background:url("/admin/images/common/bg_sms01_x.gif") 0 0 no-repeat;text-align:left;}
+.smsbgx .msg {background-color:transparent;height:100px;width:122px;color:#6a6a6a;font-weight:bold;}
+.smsbgx .byte {background-color:transparent;height:18px;text-align:left;color:#fff;}
+
+.smslist {clear:both;text-align:center;}
+.smslist .sel {width:110px;height:115px;padding:30px 20px 0 20px;
+	background:url("/admin/images/common/bg_sample_sms.gif") 0 0 no-repeat;vertical-align:top;}
+.smslist .selx {width:110px;height:115px;padding:30px 20px 0 20px;
+	background:url("/admin/images/common/bg_sample_sms_x.gif") 0 0 no-repeat;vertical-align:top;}
+
+/*회원가입 항목설정*/
+.selectlist {
+	margin:5px 0 0 0;
+	padding:20px 40px 20px 40px;
+	background-color:#f0f0f0;}
+.selectlist .title {
+	height:20px; background-color:#818fa9;
+	text-align:center; color:#fff; font-weight:bold;}
+.selectlist .scroll {
+	border:solid 1px #7f9db9;
+	width:285px;height:335px;
+	padding:10px;
+	background-color:#fff;
+	overflow-y:scroll;}
+.selectlist .list {clear:both;margin:0px;padding:0px;}
+.selectlist .fleft {float:left;}
+.selectlist .fright {float:right;}
+
+/*회원약관 설정*/
+.bggray01 {clear:both;background-color:#f0f0f0;padding:5px 10px 10px 10px;}
+
+/*개인정보취급방침 설정*/
+.privacyEdit {width:753px;height:113px;background:url("/admin/images/user/privacy_img01.gif") 0 0 no-repeat;
+	padding:70px 14px 0 10px;}
+
+
+/*특수문자*/
+.specialTab { width:165px; table-layout:fixed; }
+.specialTab .on, .specialTab2 .off { cursor:pointer; height:30px; font-size:11px; letter-spacing:-1px; margin:0px; padding-top:6px; background:url("/admin/images/common/layer_tab_L_25.gif") 0 0 repeat-x; }
+.specialTab .on { color:#d9410f; font-weight:bold; border-bottom:none; }
+.specialTab .off { color:#888888; font-weight:normal; border-bottom:solid 1px #404040; }
+.specialTab .end { border-right:solid 1px #404040; }
+
+.specialTab2 { width:90px; table-layout:fixed; }
+.specialTab2 .on, .specialTab .off { cursor:pointer; height:30px; font-size:11px; letter-spacing:-1px; margin:0px; padding-top:6px; background:url("/admin/images/common/layer_tab_L_25.gif") 0 0 repeat-x; }
+.specialTab2 .on { color:#d9410f; font-weight:bold; border-bottom:none; }
+.specialTab2 .off { color:#888888; font-weight:normal; border-bottom:solid 1px #404040; }
+.specialTab2 .end { border-right:solid 1px #404040; }
+
+.specialContent { height:137px; padding:5px; border-top:none; border-right:solid 1px #404040; border-bottom:solid 1px #404040; border-left:solid 1px #404040; }
+
+.specialContent span { margin:1px 0; padding:1px; cursor:pointer; }
+.specialContent span:hover { background-color:#CCCCCC; }
+
+.specialContent2 { padding:5px; text-align:center; border-top:none; border-right:solid 1px #404040; border-bottom:solid 1px #404040; border-left:solid 1px #404040; }
+
+.specialContent2 span { margin:1px 0; padding:1px; cursor:pointer; }
+.specialContent2 span:hover { background-color:#CCCCCC; }
+
+/*자동SMS설정*/
+.padTLB {padding:7px 0 7px 0;border-bottom:solid 1px #e3e3e3;}
+
+.autoSMSList .line {background-color:#e8e8e8;}
+.autoSMSList td {background-color:#fff;text-align:center;}
+.autoSMSList .header01 {height:28px;background-color:#6f707f;color:#fff;font-weight:bold;}
+.autoSMSList .header02 {height:22px;background-color:#8f8f9b;color:#fff;}
+.autoSMSList .btn {height:24px;background-color:#efefef;}
+
+
+/*회원관리메인테이블스타일*/
+.tbstyleE {padding:6px 0 6px 0;font-family:돋움,돋움체,Dotum;}
+.tbstyleE .top5{height:3px; background:url("../../images/user/tb_top.gif") 0 0 repeat-x;}
+.tbstyleE img {vertical-align:middle;}
+.tbstyleE input {vertical-align:middle;}
+.tbstyleE inputbox01 {height:18px;border:solid 1px #cccccc;vertical-align:middle; text-align:center;color:#444;font-weight:bold;}
+
+.tbstyleE .label {
+	font-size:10pt; font-weight:bold;
+	letter-spacing:-1px;
+	padding:0px 10px 0 10px;
+	background-color:#f4f4f4;
+	color:#1B1B1B; height:26px;
+	border-bottom: solid 1px #D8D8D8;}
+
+.tbstyleE .text {
+    padding:6px 0 6px 10px;
+	border-bottom: solid 1px #D8D8D8;
+	border-left: solid 1px #D8D8D8;
+	}
+
+.tbstyleE .text01 {
+	padding:6px 0 6px 10px;
+	color:#FF6600;font-weight:bold;
+	border-bottom: solid 1px #D8D8D8;
+	border-left: solid 1px #D8D8D8;
+    text-align:center;
+	}
+
+
+.tbstyleE .text02 {
+	padding:0 0 0 18px;
+	background:url("/admin/images/common/bul_04.gif") 10px 6px no-repeat;
+	text-align:left;}
+
+.tbstyleE .gun {
+	padding:0 10px 0 0;color:#FF6600;font-weight:bold;
+	width:40px;
+	text-align:right;}

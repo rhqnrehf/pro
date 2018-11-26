@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="postSQL">
+		<select id="getRoadZipcodeList" parameterType="java.util.Map" resultType="zipcode">
+		select zipcode,sido,nvl(sigungu,' ')as sigungu,
+		nvl(yubmyundong,' ')as yubmyundong,
+		nvl(ri,' ') as ri,
+		nvl(roadname,' ')as roadname,
+		nvl(buildingname,' ')as buildingname
+		 from newzipcode where 
+		sido like #{sido}  and 
+		nvl(sigungu,0) like #{sigungu} and 
+		roadname like #{roadname}
+		</select>
+	
+		<select id="getZipcodeList" parameterType="java.util.Map" resultType="zipcode">
+			select zipcode,sido,nvl(sigungu,' ')as 
+	        sigungu,
+			nvl(yubmyundong,' ')as yubmyundong,
+			nvl(ri,' ') as ri,
+			nvl(roadname,' ')as roadname,
+			nvl(buildingname,' ')as buildingname
+			 from newzipcode where 
+			sido like #{sido} and 
+			nvl(yubmyundong,0) like #{dong}
+	</select>
+</mapper>
