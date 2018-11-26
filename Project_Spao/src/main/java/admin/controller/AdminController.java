@@ -135,7 +135,8 @@ public class AdminController {
 			model.addAttribute("mp", mp);
 			model.addAttribute("display","member/member.jsp");
 			model.addAttribute("member", "memberList.jsp");
-			 return "main";
+			  return "main";
+
 		}
 	}
 	
