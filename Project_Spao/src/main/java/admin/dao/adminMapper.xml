@@ -75,7 +75,7 @@
 	<![CDATA[ select * from 
 	(select rownum rn,tt.* from(select spaomember.name,spaomember.id,spaomember.logtime,spaocom.hit,spaocom.reserve,spaocom.orderHit,spaocom.orderTotal
     from spaomember,spaocom where spaomember.id=spaocom.id and ${mode} like #{keyword} order by logtime desc)tt)
-    where rn>=]]>#{startNum} <![CDATA[ and rn<=]]>#{endNum}
+    where rn>=]]>#{startNum} <![CDATA[ and rn<=]]> #{endNum}
 	</select>
 	
 	<select id="getSearchPagingUserTotal" parameterType="java.util.Map" resultType="int" >
