@@ -127,6 +127,14 @@
 	</select>
 	
 	
+	<select id="getPagingReserveRank" parameterType="java.util.Map" resultType="member.reserve.bean.SpaoRankReserveDTO">
+	<![CDATA[select * from (select rownum rn,tt.* from (select spaomember.id,spaomember.name,spaocom.reserve as userreserve
+	from spaocom,spaomember where spaomember.id=spaocom.id order by reserve desc)tt)where rn >=]]>#{startNum} <![CDATA[and rn<=#{endNum}]]>
+	</select>
+	<select id="getSelectGiveReserve" parameterType="String" resultType="String">
+	select sum(won) from spaologreserve group by spaologreserve.id having id=#{id}
+	</select>
+	
 		<!-- 관리자 로그인 -->
 	<select id="loginAdmin" parameterType="String" resultType="admin">
 		select * from spaoadmin where id=#{id}

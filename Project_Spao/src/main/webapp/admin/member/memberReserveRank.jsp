@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <table cellpadding="0" cellspacing="0" border="0" width="100%">
 							<tbody><tr>
 								<td width="12"><img src="/Project_Spao/admin/images/common/body_corner_LeftTop.gif"></td>
@@ -135,42 +137,17 @@
 		</tr>
     </thead>
     <tbody>
-	    	<tr>
-        	<td class="tdL" align="center">4</td>
-        	<td class="tdL" align="center"><a href="#" class="fc_blue" id="view_buy000" user_id="hong"><u>hong</u></a></td>
-        	<td class="tdL" align="center">홍길동</td>
+    <c:forEach var="spaoRankReserveDTO" items="${list}">
+    	   <tr>
+        	<td class="tdL" align="center">${spaoRankReserveDTO.rn }</td>
+        	<td class="tdL" align="center"><a href="#" class="fc_blue" id="view_buy000" user_id="${spaoRankReserveDTO.id}"><u>${spaoRankReserveDTO.id }</u></a></td>
+        	<td class="tdL" align="center">${spaoRankReserveDTO.name}</td>
             <td class="tdL" align="center">일반회원</td>
-            <td class="tdL" align="center"><span class="fc_blue">1,000</span>
-            </td><td class="tdL" align="center"><span class="fc_blue">1,000</span></td>
-            <td class="tdR" align="center"><span class="fc_red">0</span></td>
+            <td class="tdL" align="center"><span class="fc_blue"><fmt:formatNumber value="${spaoRankReserveDTO.userReserve}" pattern="#,###"></fmt:formatNumber> </span>
+            </td><td class="tdL" align="center"><span class="fc_blue"><fmt:formatNumber value="${spaoRankReserveDTO.giveReserve}" pattern="#,###"></fmt:formatNumber> </span></td>
+            <td class="tdR" align="center"><span class="fc_red"><fmt:formatNumber value="${spaoRankReserveDTO.useReserve}" pattern="#,###"></fmt:formatNumber></span></td>
 		</tr>
-		    	<tr>
-        	<td class="tdL" align="center">3</td>
-        	<td class="tdL" align="center"><a href="#" class="fc_blue" id="view_buy001" user_id="lee"><u>lee</u></a></td>
-        	<td class="tdL" align="center">이몽룡</td>
-            <td class="tdL" align="center">일반회원</td>
-            <td class="tdL" align="center"><span class="fc_blue">1,000</span>
-            </td><td class="tdL" align="center"><span class="fc_blue">1,000</span></td>
-            <td class="tdR" align="center"><span class="fc_red">0</span></td>
-		</tr>
-		    	<tr>
-        	<td class="tdL" align="center">2</td>
-        	<td class="tdL" align="center"><a href="#" class="fc_blue" id="view_buy002" user_id="moon"><u>moon</u></a></td>
-        	<td class="tdL" align="center">황진이</td>
-            <td class="tdL" align="center">일반회원</td>
-            <td class="tdL" align="center"><span class="fc_blue">1,000</span>
-            </td><td class="tdL" align="center"><span class="fc_blue">1,000</span></td>
-            <td class="tdR" align="center"><span class="fc_red">0</span></td>
-		</tr>
-		    	<tr>
-        	<td class="tdL" align="center">1</td>
-        	<td class="tdL" align="center"><a href="#" class="fc_blue" id="view_buy003" user_id="love"><u>love</u></a></td>
-        	<td class="tdL" align="center">신사임당</td>
-            <td class="tdL" align="center">일반회원</td>
-            <td class="tdL" align="center"><span class="fc_blue">1,000</span>
-            </td><td class="tdL" align="center"><span class="fc_blue">1,000</span></td>
-            <td class="tdR" align="center"><span class="fc_red">0</span></td>
-		</tr>
+    </c:forEach>
 			</tbody>
 </table>    
 </div>

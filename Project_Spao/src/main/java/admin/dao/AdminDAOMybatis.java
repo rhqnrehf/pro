@@ -15,6 +15,7 @@ import member.bean.MemberDTO;
 import member.bean.MemberPagingDTO;
 import member.bean.SpaoComDTO;
 import member.reserve.bean.SpaoLogReservePagingDTO;
+import member.reserve.bean.SpaoRankReserveDTO;
 
 @Transactional
 @Component
@@ -153,6 +154,15 @@ public class AdminDAOMybatis implements AdminDAO {
 	public int getSearchPagingReserveLogTotalA(Map<String,String> map) {
 		int su=sqlSession.selectOne("adminSQL.getSearchPagingReserveLogTotalA",map);
 		return su;
+	}
+	
+	
+	public List<SpaoRankReserveDTO> getPagingReserveRank(Map<String,String> map){
+		List<SpaoRankReserveDTO> list=sqlSession.selectList("adminSQL.getPagingReserveRank", map);
+		return list;
+	}
+	public String getSelectGiveReserve(String id) {
+		return sqlSession.selectOne("adminSQL.getSelectGiveReserve", id);
 	}
 
 	

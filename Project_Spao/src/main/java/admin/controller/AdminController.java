@@ -33,6 +33,7 @@ import member.bean.SpaoComDTO;
 import member.reserve.bean.SpaoLogReservePaging;
 import member.reserve.bean.SpaoLogReservePagingDTO;
 import member.reserve.bean.SpaoLogReserveSearchPaging;
+import member.reserve.bean.SpaoRankReserveDTO;
 
 @Controller
 public class AdminController {
@@ -203,6 +204,22 @@ public class AdminController {
 
 	@RequestMapping("admin/memberReserveRank.do")
 	public String memberReserveRank(Model model,@RequestParam(name="pg",required=true,defaultValue="1") int pg,@RequestParam(name="mode",required=false) String mode,@RequestParam(name="keyword",required=false) String keyword) {
+		int endNum=pg*5;
+		int startNum=endNum-4;
+		Map<String,String> map=new HashMap<String,String>();
+		map.put("startNum", Integer.toString(startNum));
+		map.put("endNum", Integer.toString(endNum));
+		List<SpaoRankReserveDTO> list=null;
+		if(mode==null||keyword==null) {
+			list=adminDAO.getPagingReserveRank(map);
+			for(SpaoRankReserveDTO dto:list) {
+				dto.setGiveReserve(adminDAO.getSelectGiveReserve(dto.getId()));
+				dto.setUseReserve(Integer.toString(Integer.parseInt(dto.getGiveReserve())-Integer.parseInt(dto.getUserReserve()))); 
+			}
+				
+		}
+		
+		model.addAttribute("list", list);
 		model.addAttribute("display","member/member.jsp");
 		model.addAttribute("member", "memberReserveRank.jsp");
 		return "main";

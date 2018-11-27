@@ -9,6 +9,7 @@ import member.bean.MemberDTO;
 import member.bean.MemberPagingDTO;
 import member.bean.SpaoComDTO;
 import member.reserve.bean.SpaoLogReservePagingDTO;
+import member.reserve.bean.SpaoRankReserveDTO;
 
 public interface AdminDAO {
 	int getTotalUser();
@@ -50,4 +51,7 @@ public interface AdminDAO {
 	
 	List<SpaoLogReservePagingDTO> getSearchPagingReserveLog(Map<String,String> map);
 	int getSearchPagingReserveLogTotalA(Map<String,String> map);
+	
+	List<SpaoRankReserveDTO> getPagingReserveRank(Map<String,String> map);
+	String getSelectGiveReserve(String id);
 }
